@@ -9,7 +9,6 @@ use SNSF-CTC-18-19-M1.dta, clear
 // required ssc packages: estout, fre, center, grstyle, coefplot, marktouse
 about
 version 15.1
-clear all
 set linesize 90
 set type double
 set more off
@@ -133,10 +132,11 @@ webdoc graph duration
 ### Gender
 
 ***/
-proportion gndr if status==3
+proportion gndr, over(instrument)
 coefplot ., vertical recast(bar) barw(.7) citop ciopts(recast(rcap)) ///
     plotregion(margin(b=0)) ylabel(0(.1).7) yline(.5) citype(logit) ///
-    yti(Proportion)
+    yti(Proportion) coeflabels(_subpop_1 = "Early Postdoc.Mobility" _subpop_2 = "Postdoc.Mobility") ///
+    title(Share of male applications)
 webdoc graph gender
 /***
 
